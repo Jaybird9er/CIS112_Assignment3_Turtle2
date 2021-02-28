@@ -45,22 +45,34 @@ def spinPolygon(Turtle, sides, angle, length, repeat: 'int'):
 
 def scalePolygon(Turtle, sides, length, sfactor: 'int', number: 'int'):
     """
-    draws copies of polygon for a given number ~> each copy grows (length x sfactor) times the previous length
+    draws copies of polygon for a given 'number' ~> each copy grows (length x sfactor) times the previous length
     """
-    pass
+    scale = True
+    count = 0
+    while scale:
+        draw = True
+        while draw:
+            t.fd(length)
+            t.lt(360/sides)
+            if abs(t.pos()) < 1:
+                draw = False
+        length *= sfactor
+        count += 1
+        if count == number:
+            scale = False
 
 
 ## user values
 sides = 5
-length = 100
+length = 30
 repeat = 5
-sFactor = 0
-number = 0
+sfactor = 1.5
+number = 4
 angle = angle(sides)
 
 ## main program (fuction calls)
 spinPolygon(t, sides, angle, length, repeat)
 t.reset()
-# scalePolygon(urtle, sides, length, sfactor, number)
+scalePolygon(t, sides, length, sfactor, number)
 
 turtle.exitonclick()

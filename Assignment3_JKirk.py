@@ -12,7 +12,7 @@ t = turtle.getturtle()
 
 
 ## function defs
-def angle(sides: 'int') -> 'int':
+def angle(sides: 'int') -> 'float or int':
     """
     calculates turn angle of polygon given sides entered by user
     """
@@ -23,17 +23,25 @@ def drawShape(Turtle, sides, length: 'int'):
     draws polygon based on user input of # of sides and side length
     """
     ## as a side is drawn subtract 1 from the sidesTot
-    while sides > 0:
+    draw = True
+    while draw:
         t.fd(length)
         t.lt(360/sides)
         if abs(t.pos()) < 1:
-            break
+            draw = False
 
 def spinPolygon(Turtle, sides, angle, length, repeat: 'int'):
     """
-    draws polygon after each turn to the left
+    after each polygon is drawn, turn Turtle to the left by 'angle' degrees
     """
-    pass
+    count = 0
+    draw = True
+    while draw:
+        drawShape(t, sides, length)
+        t.lt(angle)
+        count += 1
+        if count == repeat:
+            draw = False
 
 def scalePolygon(Turtle, sides, length, sfactor: 'int', number: 'int'):
     """
@@ -45,11 +53,14 @@ def scalePolygon(Turtle, sides, length, sfactor: 'int', number: 'int'):
 ## user values
 sides = 5
 length = 100
-repeat = 0
+repeat = 5
 sFactor = 0
 number = 0
+angle = angle(sides)
 
-## fuction calls
-drawShape(t, sides, length)
+## main program (fuction calls)
+spinPolygon(t, sides, angle, length, repeat)
+t.reset()
+# scalePolygon(urtle, sides, length, sfactor, number)
 
 turtle.exitonclick()
